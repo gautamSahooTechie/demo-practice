@@ -2,8 +2,10 @@ package com.example.demopractice.account.transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /***
@@ -13,39 +15,14 @@ import java.time.LocalDateTime;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class AccountTransactionDto implements Serializable {
 
     private static final long serialVersionUID = -1832973080479696704L;
-    private double transactionAmount;
-    private LocalDateTime dateTime;
+    private BigDecimal transactionAmount;
+    private String dateTime;
     private AccountTransaction.TransactionType transactionType;
-
-    public AccountTransactionDto() {
-        // Do nothing because used for creating objects for bean.
-    }
-
-    public double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(double transactionAmount) {
-        this.transactionAmount = transactionAmount;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public AccountTransaction.TransactionType getTransactionType() {
-        return transactionType;
-    }
-
-    public void setTransactionType(AccountTransaction.TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
+    private String accountNumber;
+    private String currency;
 
 }

@@ -19,7 +19,7 @@ public interface AccountTransactionRepository extends JpaRepository<AccountTrans
      * @param account
      * @return
      */
-    @Query("SELECT tran FROM AccountTransaction tran  WHERE tran.account=(:account) order by tran.dateTime desc")
-    List<AccountTransaction> getAccountHistory(@Param("account") Account account);
+    @Query("SELECT tran FROM AccountTransaction tran  WHERE tran.account=(:account) and dateTime BETWEEN to_date(:fromDate,'yyyy-MM-dd') AND to_date (:toDate, 'yyyy-MM-dd') order by tran.dateTime desc")
+    List<AccountTransaction> getAccountHistory(@Param("account") Account account, @Param("fromDate") String fromDate, @Param("toDate") String toDate);
 
 }

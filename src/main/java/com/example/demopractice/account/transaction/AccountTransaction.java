@@ -49,4 +49,15 @@ public class AccountTransaction implements Serializable {
         DEBIT, CREDIT
     }
 
+    private String accountNumber;
+    private String currency;
+
+    public String getAccountNumber() {
+        return this.account.getAccountNumber();
+    }
+
+    public String getCurrency() {
+        return this.account.getCurrency();
+    }
+
 }

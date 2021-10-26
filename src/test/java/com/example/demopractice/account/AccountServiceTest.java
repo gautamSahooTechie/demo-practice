@@ -45,19 +45,15 @@ class AccountServiceTest {
     }
 
     @Test
-    void should_fail_deposit_account_not_found() {
+    void should_throw_EntityNotFoundException_InvalidAccount() {
 
-        //GIVEN
-        Account testAccount = new Account();
-        testAccount.setAccountNumber("00000123456");
-        testAccount.setBalance(BigDecimal.TEN);
-        //WHEN
-        when(accountRepository.getAccountByNumber(anyString())).thenReturn(Optional.empty());
+        when(accountRepository.getAccountByNumber(anyString())).thenThrow( new EntityNotFoundException("Invalid Account number"));
 
-        assertThrows(EntityNotFoundException.class, () -> accountService.accountDeposit("00000123456", BigDecimal.valueOf(10000)));
+        assertThrows(EntityNotFoundException.class, () ->accountService.accountDeposit("00000123459", BigDecimal.valueOf(10000)));
         //THEN
         verify(accountRepository, atMostOnce()).getAccountByNumber("00000123456");
-        verify(accountRepository, never()).save(testAccount);
+        verify(accountRepository, never()).save(any());
         verify(accountTransactionRepository, never()).save(any());
     }
+
 }

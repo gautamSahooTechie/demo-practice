@@ -45,15 +45,18 @@ public class AccountController {
      */
     @PostMapping("/withdraw/{amount}/{accountNumber}")
     public Mono<Status> withdrawAmount(@PathVariable("amount") @Digits(integer = 14, fraction = 3) @Positive BigDecimal amount,
-                                      @PathVariable("accountNumber") @NotEmpty String accountNumber) {
+                                       @PathVariable("accountNumber") @NotEmpty String accountNumber) {
         long startTime = System.currentTimeMillis();
         accountService.withdrawAmount(accountNumber, amount);
         log.info("AccountController.withdrawAmount method took time in millis " + (System.currentTimeMillis() - startTime));
         return Mono.just(Status.SUCCESS);
     }
 
-    @GetMapping("/ping")
-    public Mono<String> ping() {
-        return Mono.just("OK");
+    @GetMapping("/balance/{accountNumber}")
+    public Mono<BigDecimal> getBalance(@PathVariable("accountNumber") @NotEmpty String accountNumber) {
+        long startTime = System.currentTimeMillis();
+        BigDecimal balance = accountService.getBalance(accountNumber);
+        log.info("AccountController.getBalance method took time in millis " + (System.currentTimeMillis() - startTime));
+        return Mono.just(balance);
     }
 }
